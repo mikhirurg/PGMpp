@@ -39,13 +39,13 @@ PGMpp supports various image transformation methods which can be used to work wi
 
 | From RGB to... | Result | Example |
 |----------------|--------|---------|
-| RGB (Original) | <img src="/img/lena2.png" alt="Demo 13" width=500> | |
-| HSV            | <img src="/img/output_14.png" alt="Demo 14" width=500> | [Example 14](src/examples/example_14.cpp)|
-| HSL            | <img src="/img/output_15.png" alt="Demo 15" width=500> | [Example 15](src/examples/example_15.cpp)|
-| CMY            | <img src="/img/output_16.png" alt="Demo 16" width=500> | [Example 16](src/examples/example_16.cpp)|
-| YCoCg          | <img src="/img/output_17.png" alt="Demo 17" width=500> | [Example 17](src/examples/example_17.cpp)|
-| YCbCr601       | <img src="/img/output_18.png" alt="Demo 18" width=500> | [Example 18](src/examples/example_18.cpp)|
-| YCbCr709       | <img src="/img/output_19.png" alt="Demo 19" width=500> | [Example 19](src/examples/example_19.cpp)|
+| RGB (Original) | <img src="/img/lena2.png" alt="Demo 13" width=300> | |
+| HSV            | <img src="/img/output_14.png" alt="Demo 14" width=300> | [Example 14](src/examples/example_14.cpp)|
+| HSL            | <img src="/img/output_15.png" alt="Demo 15" width=300> | [Example 15](src/examples/example_15.cpp)|
+| CMY            | <img src="/img/output_16.png" alt="Demo 16" width=300> | [Example 16](src/examples/example_16.cpp)|
+| YCoCg          | <img src="/img/output_17.png" alt="Demo 17" width=300> | [Example 17](src/examples/example_17.cpp)|
+| YCbCr601       | <img src="/img/output_18.png" alt="Demo 18" width=300> | [Example 18](src/examples/example_18.cpp)|
+| YCbCr709       | <img src="/img/output_19.png" alt="Demo 19" width=300> | [Example 19](src/examples/example_19.cpp)|
 
 
 

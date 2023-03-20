@@ -28,7 +28,7 @@ void PGMGraphics<T>::drawLine(uchar bright, double thickness, double x1, double 
     std::pair<double, double>
         bounds = GetScaledBounds(points, scale_x, scale_y);
 
-    PGMImage<PGMMonoPixel> tmp = CImage(bounds.first, bounds.second, img_.GetMaxVal(), P5);
+    PGMImage<PGMMonoPixel> tmp = PGMImage<PGMMonoPixel>(bounds.first, bounds.second, img_.GetMaxVal(), P5, img_.GetGamma());
 
     FillPolygon(polygon, tmp, {255});
 
@@ -101,19 +101,19 @@ PGMGraphics<T>::CalculateLineBorderPoints(double thickness, double x1, double y1
 template<class T>
 void
 PGMGraphics<T>::ScaleBorderPoints(std::vector<std::pair<double, double>> &points,
-                             int scale_x, int scale_y) {
+                                  int scale_x, int scale_y) {
   double x_min = INT32_MAX;
   double y_min = INT32_MAX;
   double x_max = INT32_MIN;
   double y_max = INT32_MIN;
-  for (std::pair<double, double> p : points) {
+  for (std::pair<double, double> p: points) {
     x_min = std::min(x_min, p.first);
     x_max = std::max(x_max, p.first);
     y_min = std::min(y_min, p.second);
     y_max = std::max(y_max, p.second);
   }
 
-  for (std::pair<double, double> &p : points) {
+  for (std::pair<double, double> &p: points) {
     p.first -= floor(x_min);
     p.second -= floor(y_min);
     p.first = p.first * scale_x;
@@ -130,7 +130,7 @@ std::pair<double, double> PGMGraphics<T>::GetScaledBounds(
   double y_min = INT32_MAX;
   double x_max = INT32_MIN;
   double y_max = INT32_MIN;
-  for (std::pair<double, double> p : points) {
+  for (std::pair<double, double> p: points) {
     x_min = floor(std::min(x_min, p.first));
     x_max = ceil(std::max(x_max, p.first));
     y_min = floor(std::min(y_min, p.second));
@@ -144,7 +144,7 @@ std::pair<double, double> PGMGraphics<T>::GetUpperCorner(
     const std::vector<std::pair<double, double>> &points) {
   double x_min = INT32_MAX;
   double y_min = INT32_MAX;
-  for (std::pair<double, double> p : points) {
+  for (std::pair<double, double> p: points) {
     x_min = std::min(x_min, p.first);
     y_min = std::min(y_min, p.second);
   }
@@ -154,10 +154,10 @@ std::pair<double, double> PGMGraphics<T>::GetUpperCorner(
 template<class T>
 void
 PGMGraphics<T>::DrawDownscaled(const PGMImage<PGMMonoPixel> &img, int scale_x,
-                          int scale_y,
-                          const std::pair<double, double> &start_coord,
-                          T bright,
-                          double gamma) {
+                               int scale_y,
+                               const std::pair<double, double> &start_coord,
+                               T bright,
+                               double gamma) {
   int alpha_val = 0;
   int y;
   int x;
@@ -169,9 +169,9 @@ PGMGraphics<T>::DrawDownscaled(const PGMImage<PGMMonoPixel> &img, int scale_x,
         }
       }
       alpha_val /= (scale_x * scale_y);
-      T pix = this->GetPixel(x / scale_x + (int) start_coord.first,
+      T pix = img_.GetPixel(x / scale_x + (int) start_coord.first,
                              y / scale_y + (int) start_coord.second);
-      this->PutPixel(x / scale_x + (int) start_coord.first,
+      img_.PutPixel(x / scale_x + (int) start_coord.first,
                      y / scale_y + (int) start_coord.second,
                      apply_alpha(bright, pix, alpha_val, gamma));
       alpha_val = 0;
@@ -182,7 +182,7 @@ PGMGraphics<T>::DrawDownscaled(const PGMImage<PGMMonoPixel> &img, int scale_x,
 template<class T>
 void
 PGMGraphics<T>::plot(PGMImage<T> &img, double x, double y, double alpha, PGMMonoPixel bright,
-                double gamma) {
+                     double gamma) {
   if (x >= 0 && y >= 0 && x < img.GetWidth() && y < img.GetHeight()) {
     img.PutPixel(x, y, apply_alpha(bright, img.GetPixel(x, y), alpha, gamma));
   }
@@ -200,8 +200,8 @@ double PGMGraphics<T>::FloatPart(double x) {
 
 template<class T>
 void PGMGraphics<T>::DrawWuLine(PGMMonoPixel brightness, double thickness, double x1,
-                           double y1,
-                           double x2, double y2, double gamma) {
+                                double y1,
+                                double x2, double y2, double gamma) {
   bool check = abs(y2 - y1) > abs(x2 - x1);
   brightness.val *= thickness;
   if (check) {
@@ -221,26 +221,26 @@ void PGMGraphics<T>::DrawWuLine(PGMMonoPixel brightness, double thickness, doubl
   }
 
   if (check) {
-    plot(*this, y1, x1, img_.GetMaxVal(), brightness, gamma);
-    plot(*this, y2, x2, img_.GetMaxVal(), brightness, gamma);
+    plot(img_, y1, x1, img_.GetMaxVal(), brightness, gamma);
+    plot(img_, y2, x2, img_.GetMaxVal(), brightness, gamma);
     double y = y1 + delta;
     for (double x = x1 + 1.0; x < x2; x++) {
-      plot(*this, intPart(y), x,
+      plot(img_, intPart(y), x,
            (double) img_.GetMaxVal() * (1.0 - FloatPart(y)), brightness,
            gamma);
-      plot(*this, intPart(y) + 1.0, x,
+      plot(img_, intPart(y) + 1.0, x,
            (double) img_.GetMaxVal() * FloatPart(y), brightness, gamma);
       y += delta;
     }
   } else {
-    plot(*this, x1, y1, img_.GetMaxVal(), brightness, gamma);
-    plot(*this, x2, y2, img_.GetMaxVal(), brightness, gamma);
+    plot(img_, x1, y1, img_.GetMaxVal(), brightness, gamma);
+    plot(img_, x2, y2, img_.GetMaxVal(), brightness, gamma);
     double y = y1 + delta;
     for (double x = x1 + 1.0; x < x2; x++) {
-      plot(*this, x, intPart(y),
+      plot(img_, x, intPart(y),
            (double) img_.GetMaxVal() * (1.0 - FloatPart(y)), brightness,
            gamma);
-      plot(*this, x, intPart(y) + 1.0,
+      plot(img_, x, intPart(y) + 1.0,
            (double) img_.GetMaxVal() * FloatPart(y), brightness, gamma);
       y += delta;
     }
@@ -249,8 +249,8 @@ void PGMGraphics<T>::DrawWuLine(PGMMonoPixel brightness, double thickness, doubl
 
 template<class T>
 void PGMGraphics<T>::ShiftPoints(std::vector<std::pair<double, double>> &points,
-                            double shift_x, double shift_y) {
-  for (std::pair<double, double> &p : points) {
+                                 double shift_x, double shift_y) {
+  for (std::pair<double, double> &p: points) {
     p.first += shift_x;
     p.second += shift_y;
   }
@@ -359,7 +359,7 @@ void PGMGraphics<T>::FillPolygon(Polygon &polygon, PGMImage<T> &img, T color) {
     xl = xr = 0;
     counter = 0;
     drawing = 0;
-    for (auto curEdge : polygon.active_list) {
+    for (auto curEdge: polygon.active_list) {
       counter += curEdge->dir;
       if ((counter & counter_mask) && !drawing) {
         xl = floor(curEdge->x);
@@ -384,6 +384,45 @@ void PGMGraphics<T>::FillPolygon(Polygon &polygon, PGMImage<T> &img, T color) {
       for (int i = xl; i <= right_bound; i++) {
         img.PutPixel(i, y, color);
       }
+    }
+  }
+}
+
+template<class T>
+void PGMGraphics<T>::swap_pixels(PGMImage<T> &img, int x1, int y1, int x2, int y2) {
+  if (x1 < img.GetWidth() && x1 >= 0 && y1 < img.GetHeight() && y1 >= 0 && x2 < img.GetWidth() &&
+      x2 >= 0 &&
+      y2 < img.GetHeight() && y2 >= 0) {
+    T pixel = img.GetPixel(x1, y1);
+    img.PutPixel(x1, y1, img.GetPixel(x2, y2));
+    img.PutPixel(x2, y2, pixel);
+  }
+
+}
+
+template<class T>
+void PGMGraphics<T>::invert() {
+  for (int y = 0; y < img_.GetHeight(); y++) {
+    for (int x = 0; x < img_.GetWidth(); ++x) {
+      img_.PutPixel(x, y, {static_cast<uchar>(255 - img_.GetPixel(x, y).val)});
+    }
+  }
+}
+
+template<class T>
+void PGMGraphics<T>::horizontalFlip() {
+  for (int y = 0; y < img_.GetHeight(); y++) {
+    for (int x = 0; x < img_.GetWidth() / 2; x++) {
+      swap_pixels(img_, x, y, img_.GetWidth() - x - 1, y);
+    }
+  }
+}
+
+template<class T>
+void PGMGraphics<T>::verticalFlip() {
+  for (int y = 0; y < img_.GetHeight() / 2; y++) {
+    for (int x = 0; x < img_.GetWidth(); x++) {
+      swap_pixels(img_, x, y, x, img_.GetHeight() - y - 1);
     }
   }
 }

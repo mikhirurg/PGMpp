@@ -17,6 +17,12 @@ class PGMGraphics {
   void drawLine(uchar bright, double thickness, double x1, double y1, double x2,
                 double y2, double gamma);
 
+  void invert();
+
+  void horizontalFlip();
+
+  void verticalFlip();
+
  private:
   const double eps = 1e-10;
   PGMImage<T> &img_;
@@ -127,6 +133,8 @@ class PGMGraphics {
                   double y2, double gamma);
 
   void ShiftPoints(std::vector<std::pair<double, double>> &points, double shift_x, double shift_y);
+
+  void swap_pixels(PGMImage<T> &img, int x1, int y1, int x2, int y2);
 };
 
 #include "PGMDitherer_impl.h"

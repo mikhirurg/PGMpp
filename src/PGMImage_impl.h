@@ -262,14 +262,14 @@ template<typename T>
 void PGMImage<T>::WriteImg(const std::string &fname) {
   FILE *f = fopen(fname.c_str(), "wb");
   if (!f) {
-    int result = remove(fname.c_str());
-    if (result != 0) {
+    f = fopen(fname.c_str(), "ab+");
+    if (!f) {
       throw PGMImageFileDeleteException();
     }
     throw PGMImageFileOpenException();
   }
   char *head = new char[MAX_HEADER_SIZE];
-  int len = snprintf(head, MAX_HEADER_SIZE, "P%i\n%i %i\n%i\n", type_, w_, h_,
+  int len = snprintf(head, MAX_HEADER_SIZE, "P%i\n%i %i\n%invert\n", type_, w_, h_,
                      max_val_);
   fwrite(head, 1, len, f);
   auto *buf = (uchar *) data_;
@@ -293,7 +293,7 @@ template<class T>
 void PGMImage<T>::WriteImg() {
   FILE *f = fopen(fname_.c_str(), "wb");
   char head[MAX_HEADER_SIZE];
-  int len = snprintf(head, MAX_HEADER_SIZE, "P%i\n%i %i\n%i\n", type_, w_, h_,
+  int len = snprintf(head, MAX_HEADER_SIZE, "P%i\n%i %invert\n%i\n", type_, w_, h_,
                      max_val_);
   fwrite(head, 1, len, f);
   auto *buf = (uchar *) data_;

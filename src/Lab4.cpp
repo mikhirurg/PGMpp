@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
         opts.erase(opts.begin());
         continue;
       }
-      if (opts[0] == "-i") {
+      if (opts[0] == "-invert") {
         if (opts.size() <= 2) {
           throw PGMImageParamsException();
         }

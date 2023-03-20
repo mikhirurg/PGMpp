@@ -7,13 +7,13 @@
 
 int main(int argc, char *argv[]) {
 
-  // Open PGM image "black_square.pgm"
+  // Open PGM image "coast.ppm"
   PGMImage<PGMColorPixel> img = PGMImage<PGMColorPixel>("pgm_img/coast.ppm", 2.2);
 
-  // Create PGMGraphics object
+  // Create PGMDitherer object
   PGMDitherer<PGMColorPixel> ditherer = PGMDitherer<PGMColorPixel>(img);
 
-  // Flip image vertically
+  // Perform the Halftone dithering
   ditherer.DoHalftoneDithering(2);
 
   // Save image to output file

@@ -7,16 +7,20 @@
 
 int main(int argc, char *argv[]) {
 
-  // Open PGM image "black_square.pgm"
+  // Open PGM image "lena.ppm"
   PGMImage<PGMColorPixel> img = PGMImage<PGMColorPixel>("pgm_img/lena.ppm", 2.2);
 
+  // Create the tmp PGM image
   PGMImage<PGMColorPixel> tmp = PGMImage<PGMColorPixel>(img.GetWidth(),
                                                         img.GetHeight(),
                                                         img.GetMaxVal(),
                                                         img.GetFileType(),
                                                         img.GetGamma());
 
+  // Create the YCoCg color space object
   YCoCg color_space = YCoCg();
+
+  // Apply color transformation to each pixel of the input image and write them to the output image
   for (int y = 0; y < img.GetHeight(); y++) {
     for (int x = 0; x < img.GetWidth(); x++) {
       tmp.PutPixel(x, y, color_space.FromRGB(img.GetPixel(x, y)));

@@ -21,18 +21,18 @@ PGMpp supports various image transformation methods which can be used to work wi
 
 ### Dithering algorithms
 
-| Algorithm | Result  | Example |
-|-----------|---------|---------|
-| Original  | <img src="/img/coast.png" alt="Original" width=500> | |
-| Atkinson dithering (2 bits) | <img src="/img/output_5.png" alt="Demo 5" width=500> | [Example 5](src/examples/example_5.cpp)|
-| Color bit correction (2 bits) | <img src="/img/output_6.png" alt="Demo 6" width=500> | [Example 6](src/examples/example_6.cpp)|
+| Algorithm                          | Result  | Example |
+|------------------------------------|---------|---------|
+| Original                           | <img src="/img/coast.png" alt="Original" width=500> | |
+| Atkinson dithering (2 bits)        | <img src="/img/output_5.png" alt="Demo 5" width=500> | [Example 5](src/examples/example_5.cpp)|
+| Color bit correction (2 bits)      | <img src="/img/output_6.png" alt="Demo 6" width=500> | [Example 6](src/examples/example_6.cpp)|
 | Floyd Steinberg dithering (2 bits) | <img src="/img/output_7.png" alt="Demo 7" width=500> | [Example 7](src/examples/example_7.cpp)|
-| JJN dithering (2 bits) | <img src="/img/output_8.png" alt="Demo 8" width=500> | [Example 8](src/examples/example_8.cpp)|
-| Halftone dithering (2 bits) | <img src="/img/output_9.png" alt="Demo 9" width=500> | [Example 9](src/examples/example_9.cpp)|
-| Sierra dithering (2 bits) | <img src="/img/output_10.png" alt="Demo 10" width=500> | [Example 10](src/examples/example_10.cpp)|
-| Error difference dithering (2 bits) | <img src="/img/output_11.png" alt="Demo 11" width=500> | [Example 11](src/examples/example_11.cpp)|
-| Ordered dithering (2 bits) | <img src="/img/output_12.png" alt="Demo 12" width=500> | [Example 12](src/examples/example_12.cpp)|
-| Random dithering (2 bits) | <img src="/img/output_13.png" alt="Demo 13" width=500> | [Example 13](src/examples/example_13.cpp)|
+| JJN dithering (2 bits)             | <img src="/img/output_8.png" alt="Demo 8" width=500> | [Example 8](src/examples/example_8.cpp)|
+| Halftone dithering (2 bits)        | <img src="/img/output_9.png" alt="Demo 9" width=500> | [Example 9](src/examples/example_9.cpp)|
+| Sierra dithering (2 bits)          | <img src="/img/output_10.png" alt="Demo 10" width=500> | [Example 10](src/examples/example_10.cpp)|
+| Error diffusion dithering (2 bits) | <img src="/img/output_11.png" alt="Demo 11" width=500> | [Example 11](src/examples/example_11.cpp)|
+| Ordered dithering (2 bits)         | <img src="/img/output_12.png" alt="Demo 12" width=500> | [Example 12](src/examples/example_12.cpp)|
+| Random dithering (2 bits)          | <img src="/img/output_13.png" alt="Demo 13" width=500> | [Example 13](src/examples/example_13.cpp)|
 
 
 ### Color space transformations

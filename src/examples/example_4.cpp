@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
   // Create PGMGraphics object
   PGMGraphics<PGMMonoPixel> graphics = PGMGraphics<PGMMonoPixel>(img);
 
-  // Flip image vertically
+  // Draw two lines
   graphics.drawLine(100, 10.5, 50, 350, 350, 50, 2.2);
   graphics.drawLine(100, 10.5, 50, 50, 350, 350, 2.2);
 

@@ -1,5 +1,7 @@
 # PGMpp
 
+<img src="/img/PGMpp.png" alt="Demo 1" width=300>
+
 ## Project description
 
 PGMpp is an image manipulation library for PGM image format. It allows performing various transformations such as:
